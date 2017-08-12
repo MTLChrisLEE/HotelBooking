@@ -6,15 +6,39 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.sql.Statement;
+
+s
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("sample.fxml"));
         primaryStage.setTitle("Hello World");
-        primaryStage.setScene(new Scene(root, 300, 275));
+        primaryStage.setScene(new Scene(root, 1000, 800));
         primaryStage.show();
     }
+
+
+    @Override
+    public void init() throws Exception {
+        try{
+            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelmtlchrislee","root","");
+            Statement statement = connection.createStatement();
+            statement.execute("INSERT INTO guests VALUES ('HELLO','WORLD','JAVA','123456789','JDBC@gmail.com')");
+        }catch(SQLException e){
+            e.getMessage();
+        }
+    }
+
+    @Override
+    public void stop() throws Exception {
+        super.stop();
+    }
+
 
 
     public static void main(String[] args) {
