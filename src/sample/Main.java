@@ -14,6 +14,22 @@ import java.sql.Statement;
 
 public class Main extends Application {
 
+    private final String TABLE_GUESTS = "guests";
+    private final String TABLE_ROOMS = "rooms";
+    private final String TABLE_RESERVATION = "reservation";
+
+    private final String COLUMN_GUESTID = "GuestID";
+    private final String COLUMN_LASTNAME = "lastName";
+    private final String COLUMN_FIRSTNAME = "firstName";
+    private final String COLUMN_PHONE = "phoneNumber";
+    private final String COLUMN_EMAIL = "email";
+
+    private final String COLUMN_ROOM = "RoomNumber";
+    private final String COLUMN_CHECKIN = "checkinDate";
+    private final String COLUMN_CHECKOUT = "checkoutDate";
+
+
+
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getResource("main.fxml"));
