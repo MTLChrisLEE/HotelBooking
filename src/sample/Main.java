@@ -5,30 +5,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import sample.DataModel.DataSource;
+import sample.DataModel.guests;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.List;
 
 
 public class Main extends Application {
-
-    private final String TABLE_GUESTS = "guests";
-    private final String TABLE_ROOMS = "rooms";
-    private final String TABLE_RESERVATION = "reservation";
-
-    private final String COLUMN_GUESTID = "GuestID";
-    private final String COLUMN_LASTNAME = "lastName";
-    private final String COLUMN_FIRSTNAME = "firstName";
-    private final String COLUMN_PHONE = "phoneNumber";
-    private final String COLUMN_EMAIL = "email";
-
-    private final String COLUMN_ROOM = "RoomNumber";
-    private final String COLUMN_CHECKIN = "checkinDate";
-    private final String COLUMN_CHECKOUT = "checkoutDate";
-
-
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -41,13 +28,13 @@ public class Main extends Application {
 
     @Override
     public void init() throws Exception {
-        try{
-            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelmtlchrislee","root","");
-            Statement statement = connection.createStatement();
-            statement.execute("INSERT INTO guests VALUES ('HELLO','WORLD','JAVA','123456789','JDBC@gmail.com')");
-        }catch(SQLException e){
-            e.getMessage();
-        }
+//        try{
+//            Connection connection = DriverManager.getConnection("jdbc:mysql://localhost:3306/hotelmtlchrislee","root","");
+//            Statement statement = connection.createStatement();
+//            statement.execute("INSERT INTO guests VALUES ('HELLO','WORLD','JAVA','123456789','JDBC@gmail.com')");
+//        }catch(SQLException e){
+//            e.getMessage();
+//        }
     }
 
     @Override
@@ -58,6 +45,25 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
+        DataSource dataSource = new DataSource();
+        if(!dataSource.open()){
+            System.out.println("CANNOT open datasource");
+            return;
+        }
+
+        List<guests> guests = dataSource.queryGuests();
+        if(guests==null){
+            System.out.println("NO GUESTS");
+            return;
+        }
+
+        for(guests Guest: guests){
+            System.out.println("ID: "+ Guest.getGuestID()+ ", First Name: " + Guest.getFirstName() +
+                                ", Last Name: " + Guest.getLastName() + ", Email: " + Guest.getEmail() +
+                                ", Phone Number: " + Guest.getPhoneNumber());
+        }
+
+        dataSource.close();
         launch(args);
     }
 }
