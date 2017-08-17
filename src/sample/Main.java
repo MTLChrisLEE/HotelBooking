@@ -7,6 +7,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import sample.DataModel.DataSource;
 import sample.DataModel.guests;
+import sample.DataModel.reservation;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -51,16 +52,27 @@ public class Main extends Application {
             return;
         }
 
-        List<guests> guests = dataSource.queryGuests();
-        if(guests==null){
-            System.out.println("NO GUESTS");
+//        List<guests> guests = dataSource.queryGuests();
+//        if(guests==null){
+//            System.out.println("NO GUESTS");
+//            return;
+//        }
+//
+//        for(guests Guest: guests){
+//            System.out.println("ID: "+ Guest.getGuestID()+ ", First Name: " + Guest.getFirstName() +
+//                                ", Last Name: " + Guest.getLastName() + ", Email: " + Guest.getEmail() +
+//                                ", Phone Number: " + Guest.getPhoneNumber());
+//        }
+
+        List<reservation> reservations = dataSource.queryReservation(3);
+        if(reservations==null){
+            System.out.println("NO RESERVATION!");
             return;
         }
 
-        for(guests Guest: guests){
-            System.out.println("ID: "+ Guest.getGuestID()+ ", First Name: " + Guest.getFirstName() +
-                                ", Last Name: " + Guest.getLastName() + ", Email: " + Guest.getEmail() +
-                                ", Phone Number: " + Guest.getPhoneNumber());
+        for(reservation Reservation: reservations) {
+            System.out.println("GuestID: " + Reservation.getGuestID() + ", Room No: " + Reservation.getRoomNumber() +
+                    ", CheckIn Date: " + Reservation.getCheckinDate() + ", CheckOut Date: " + Reservation.getCheckoutDate());
         }
 
         dataSource.close();

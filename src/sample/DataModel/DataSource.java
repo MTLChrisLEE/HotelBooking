@@ -25,6 +25,10 @@ public class DataSource {
     private final String COLUMN_CHECKIN = "checkinDate";
     private final String COLUMN_CHECKOUT = "checkoutDate";
 
+    public static final int ORDER_BY_NONE = 1;
+    public static final int ORDER_BY_ASC =2;
+    public static final int ORDER_BY_DESC=3;
+
     private Connection connection;
 
     public boolean open(){
@@ -48,8 +52,6 @@ public class DataSource {
     }
 
     public List<guests> queryGuests(){
-
-
         try(Statement statement = connection.createStatement();
             ResultSet resultSet = statement.executeQuery("SELECT * FROM " + TABLE_GUESTS)){
 
@@ -74,4 +76,45 @@ public class DataSource {
         }
 
     }
+
+    public List<reservation> queryReservation(int sortOrder){
+
+        StringBuilder sb = new StringBuilder("SELECT * FROM ");
+        sb.append(TABLE_RESERVATION);
+        if(sortOrder!=ORDER_BY_NONE){
+            sb.append(" ORDER BY ");
+            sb.append(COLUMN_ROOM);
+            if(sortOrder==ORDER_BY_DESC){
+                sb.append(" DESC");
+            }else{
+                sb.append(" ASC");
+            }
+        }
+
+
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sb.toString())){
+
+
+            List<reservation> reservations= new ArrayList<>();
+            while(resultSet.next()){
+                reservation reservation = new reservation();
+                reservation.setGuestID(resultSet.getString(COLUMN_GUESTID));
+                reservation.setRoomNumber(resultSet.getInt(COLUMN_ROOM));
+                reservation.setCheckinDate(resultSet.getDate(COLUMN_CHECKIN));
+                reservation.setCheckoutDate((resultSet.getDate(COLUMN_CHECKOUT)));
+                reservations.add(reservation);
+            }
+
+            return reservations;
+
+        }catch(SQLException e){
+            System.out.println("QUERY FAILED: " + e.getMessage());
+            return null;
+
+        }
+
+    }
+
+
 }
