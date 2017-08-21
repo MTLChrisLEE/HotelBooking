@@ -9,15 +9,28 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableView;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sample.DataModel.DataSource;
 import sample.DataModel.rooms;
 
+import java.io.IOException;
+;
+
 public class Controller {
     @FXML
     private TableView<rooms> roomsTableView;
+
+    @FXML
+    private BorderPane mainpane;
+
+
+
 
     @FXML
     Button checkReservation;
@@ -48,6 +61,27 @@ public class Controller {
            System.out.println("Cannot Open the new Window: "+e.getMessage());
        }
     }
+
+
+    @FXML
+    public void showReserve() {
+
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReserveDialogPane.fxml"));
+            Parent root1 = (Parent)fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("Enter the guest's info");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }catch(Exception e){
+            System.out.println("Cannot open the dialog window: " + e.getMessage());
+        }
+
+    }
+
+
+
 
 }
 
