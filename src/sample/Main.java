@@ -1,9 +1,13 @@
 package sample;
 
 import javafx.application.Application;
+import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.Border;
+import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import sample.DataModel.DataSource;
 import sample.DataModel.guests;
@@ -45,47 +49,9 @@ public class Main extends Application {
 
 
 
+
     public static void main(String[] args) {
-//        DataSource dataSource = new DataSource();
-//        if(!dataSource.open()){
-//            System.out.println("CANNOT open datasource");
-//            return;
-//        }
-//
-//        List<guests> guests = dataSource.queryGuests();
-//        if(guests==null){
-//            System.out.println("NO GUESTS");
-//            return;
-//        }
-//
-//        for(guests Guest: guests){
-//            System.out.println("ID: "+ Guest.getGuestID()+ ", First Name: " + Guest.getFirstName() +
-//                                ", Last Name: " + Guest.getLastName() + ", Email: " + Guest.getEmail() +
-//                                ", Phone Number: " + Guest.getPhoneNumber());
-//        }
-//
-//        List<reservation> reservations = dataSource.queryReservation(3);
-//        if(reservations==null){
-//            System.out.println("NO RESERVATION!");
-//            return;
-//        }
-//
-//        for(reservation Reservation: reservations) {
-//            System.out.println("GuestID: " + Reservation.getGuestID() + ", Room No: " + Reservation.getRoomNumber() +
-//                    ", CheckIn Date: " + Reservation.getCheckinDate() + ", CheckOut Date: " + Reservation.getCheckoutDate());
-//        }
-//
-//
-//
-//        List<reservation> reservationsguestid = dataSource.queryReservationbyGuestID("JDBC",1);
-//
-//        for(reservation reservation:reservationsguestid){
-//            System.out.println("Room Number: "+reservation.getRoomNumber()+ "   GuestID: "+reservation.getGuestID()+"   CheckInDate: "+reservation.getCheckinDate()+"   CheckoutDate: "+reservation.getCheckoutDate());
-//        }
-//
-//
-//
-//        dataSource.close();
+
         launch(args);
     }
 

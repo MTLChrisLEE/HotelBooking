@@ -35,6 +35,8 @@ public class DataSource {
 
     public static final String QEURY_ROOMS = "SELECT * FROM " + TABLE_ROOMS;
 
+    public static final String QUERY_RESERVATION = "SELECT * FROM " + TABLE_RESERVATION;
+
 
 
     public static final String QUERY_GUEST_BY_LASTNAME =
@@ -162,9 +164,31 @@ public class DataSource {
             return null;
 
         }
-
-
     }
+
+
+    public List<reservation> queryAllReservation(){
+        StringBuilder sb = new StringBuilder(QUERY_RESERVATION);
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sb.toString())){
+
+
+            List<reservation> reservations = new ArrayList<>();
+            while(resultSet.next()){
+                reservation reservation = new reservation();
+                reservation.setGuestID(resultSet.getString(COLUMN_GUESTID));
+                reservation.setRoomNumber(resultSet.getInt(COLUMN_ROOM));
+                reservation.setCheckinDate(resultSet.getDate(COLUMN_CHECKIN));
+                reservation.setCheckoutDate(resultSet.getDate(COLUMN_CHECKOUT));
+                reservations.add(reservation);
+            }
+            return reservations;
+        }catch(SQLException e){
+            System.out.println("QUERY FAILED: " + e.getMessage());
+            return null;
+        }
+    }
+
 
     //SELECT reservation.RoomNumber, reservation.checkinDate, reservation.checkoutDate FROM reservation INNER JOIN guests ON reservation.GuestID=guests.GuestID WHERE guests.GuestID='MTLChrisLEE'
     public List<reservation> queryReservationbyGuestID(String guestID, int sortOrder){

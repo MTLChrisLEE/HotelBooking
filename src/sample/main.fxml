@@ -47,7 +47,7 @@
                     <DatePicker></DatePicker>
                 </HBox>
                 <Button text="Reserve"></Button>
-                <Button text="Check Reservation"></Button>
+                <Button fx:id="checkReservation" text="Check Reservation" onAction="#showReservation"></Button>
             </children>
         </VBox>
     </center>
