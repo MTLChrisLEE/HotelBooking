@@ -20,6 +20,8 @@ public class DataSource {
     public static final String COLUMN_FIRSTNAME = "firstName";
     public static final String COLUMN_PHONE = "phoneNumber";
     public static final String COLUMN_EMAIL = "email";
+    public static final String COLUMN_TYPE = "Type";
+    public static final String COLUMN_RATE ="rate";
 
     public static final String COLUMN_ROOM = "RoomNumber";
     public static final String COLUMN_CHECKIN = "checkinDate";
@@ -31,14 +33,12 @@ public class DataSource {
                     " INNER JOIN "+ TABLE_GUESTS +" ON " + TABLE_RESERVATION + "."+COLUMN_GUESTID+"="+TABLE_GUESTS+"."+COLUMN_GUESTID+
                     " WHERE "+ TABLE_GUESTS+"."+COLUMN_GUESTID+"=\'";
 
+    public static final String QEURY_ROOMS = "SELECT * FROM " + TABLE_ROOMS;
+
 
 
     public static final String QUERY_GUEST_BY_LASTNAME =
             "SELECT " + TABLE_GUESTS + " WHERE " + COLUMN_LASTNAME+"=\'";
-
-
-
-
 
 
     public static final int ORDER_BY_NONE = 1;
@@ -46,6 +46,12 @@ public class DataSource {
     public static final int ORDER_BY_DESC=3;
 
     private Connection connection;
+
+    private static DataSource instance = new DataSource();
+
+    public static DataSource getInstance(){
+        return instance;
+    }
 
     public boolean open(){
         try{
@@ -129,6 +135,34 @@ public class DataSource {
             return null;
 
         }
+
+    }
+
+
+    public List<rooms> queryAllRooms(){
+        StringBuilder sb = new StringBuilder(QEURY_ROOMS);
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sb.toString())){
+
+
+            List<rooms> rooms= new ArrayList<>();
+            while(resultSet.next()){
+                rooms room = new rooms();
+                room.setRoomNumber(resultSet.getInt(COLUMN_ROOM));
+                room.setType(resultSet.getString(COLUMN_TYPE));
+                room.setRate(resultSet.getInt(COLUMN_RATE));
+
+                rooms.add(room);
+            }
+
+            return rooms;
+
+        }catch(SQLException e){
+            System.out.println("QUERY FAILED: " + e.getMessage());
+            return null;
+
+        }
+
 
     }
 
