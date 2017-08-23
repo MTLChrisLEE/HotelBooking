@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<DialogPane prefHeight="300" prefWidth="300" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ReserveDialogPane">
+<DialogPane fx:id="ReservePane" prefHeight="300" prefWidth="300" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.ReserveDialogPane">
     <headerText> ENTER THE GUEST'S INFORMATION </headerText>
     <content>
         <GridPane hgap="10" vgap="10" alignment="CENTER">
@@ -27,6 +27,16 @@
 
             <Label text="Email: " GridPane.columnIndex="0" GridPane.rowIndex="4" />
             <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
+
+            <Label text="Room Number: " GridPane.columnIndex="0" GridPane.rowIndex="5"/>
+            <TextField fx:id="roomnumber" GridPane.columnIndex="1" GridPane.rowIndex="5"/>
+
+            <Label text="Check In Date: " GridPane.columnIndex="0" GridPane.rowIndex="6"/>
+            <TextField fx:id="checkindate" GridPane.columnIndex="1" GridPane.rowIndex="6"/>
+
+            <Label text="Check Out Date: " GridPane.columnIndex="0" GridPane.rowIndex="7"/>
+            <TextField fx:id="checkoutdate" GridPane.columnIndex="1" GridPane.rowIndex="7"/>
+
 
             <HBox alignment="CENTER" GridPane.columnIndex="0" GridPane.rowIndex="10" spacing="20">
                 <Button text="OK" />

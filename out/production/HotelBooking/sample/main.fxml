@@ -40,14 +40,15 @@
             <children>
                 <HBox alignment="CENTER">
                     <Label text="Check In Date: "></Label>
-                    <DatePicker></DatePicker>
+                    <DatePicker fx:id="checkindatepicker"></DatePicker>
                 </HBox>
                 <HBox alignment="CENTER">
                     <Label text="Check Out Date: "></Label>
-                    <DatePicker></DatePicker>
+                    <DatePicker fx:id="checkoutdatepicker"></DatePicker>
                 </HBox>
                 <Button text="Reserve" onAction="#showReserve"></Button>
                 <Button fx:id="checkReservation" text="Check Reservation" onAction="#showReservation"></Button>
+                <Button text="Search" onAction="#listSearchedRooms"></Button>
             </children>
         </VBox>
     </center>

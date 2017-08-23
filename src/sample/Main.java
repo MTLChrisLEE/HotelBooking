@@ -31,6 +31,7 @@ public class Main extends Application {
         Controller controller = loader.getController();
         controller.listRooms();
 
+
         primaryStage.setTitle("Hotel MTLCHRISLEE");
         primaryStage.setScene(new Scene(root, 1000, 800));
         primaryStage.show();

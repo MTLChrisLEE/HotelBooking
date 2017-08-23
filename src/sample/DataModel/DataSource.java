@@ -1,5 +1,7 @@
 package sample.DataModel;
 
+import javafx.fxml.FXML;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +38,13 @@ public class DataSource {
     public static final String QEURY_ROOMS = "SELECT * FROM " + TABLE_ROOMS;
 
     public static final String QUERY_RESERVATION = "SELECT * FROM " + TABLE_RESERVATION;
+
+
+
+    public static final String QUERY_VACANCY = "SELECT r.* FROM " + TABLE_ROOMS + " r WHERE NOT EXISTS (SELECT 1 FROM " + TABLE_RESERVATION + " re WHERE "+
+                                            "re."+COLUMN_ROOM+"="+"r."+COLUMN_ROOM+ " AND " + "((\'2017-08-31\'>=re."+COLUMN_CHECKIN+" AND '2017-08-31'<re."+COLUMN_CHECKOUT
+                                            + ") OR " + "('2017-08-31'<re."+ COLUMN_CHECKOUT + " AND '2017-08-31'>=re." + COLUMN_CHECKIN+")))";
+
 
 
 
@@ -230,6 +239,37 @@ public class DataSource {
 
         }
     }
+
+
+
+    public List<rooms> showSearchResult(){
+        StringBuilder sb = new StringBuilder(QUERY_VACANCY);
+
+        try(Statement statement = connection.createStatement();
+            ResultSet resultSet = statement.executeQuery(sb.toString())){
+
+
+            List<rooms> rooms= new ArrayList<>();
+            while(resultSet.next()){
+                rooms room = new rooms();
+                room.setRoomNumber(resultSet.getInt(COLUMN_ROOM));
+                room.setType(resultSet.getString(COLUMN_TYPE));
+                room.setRate(resultSet.getInt(COLUMN_RATE));
+
+                rooms.add(room);
+            }
+
+            return rooms;
+
+        }catch(SQLException e){
+            System.out.println("QUERY FAILED: " + e.getMessage());
+            return null;
+
+        }
+
+
+    }
+
 
 
 

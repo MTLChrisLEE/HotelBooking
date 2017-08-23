@@ -29,14 +29,18 @@ public class Controller {
     @FXML
     private BorderPane mainpane;
 
-
-
-
     @FXML
     Button checkReservation;
 
     public void listRooms(){
         Task<ObservableList<rooms>> task = new GetAllRooms();
+        roomsTableView.itemsProperty().bind(task.valueProperty());
+
+        new Thread(task).start();
+    }
+
+    public void listSearchedRooms(){
+        Task<ObservableList<rooms>> task = new GetSearchedRooms();
         roomsTableView.itemsProperty().bind(task.valueProperty());
 
         new Thread(task).start();
@@ -80,9 +84,6 @@ public class Controller {
 
     }
 
-
-
-
 }
 
 
@@ -96,4 +97,11 @@ class GetAllRooms extends Task{
 }
 
 
+class GetSearchedRooms extends Task{
+    @Override
+    protected ObservableList<rooms> call() throws Exception {
+        return FXCollections.observableArrayList
+                (DataSource.getInstance().showSearchResult());
+    }
 
+}
