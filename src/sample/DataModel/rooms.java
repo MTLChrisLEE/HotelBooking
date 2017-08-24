@@ -6,7 +6,7 @@ import javafx.beans.property.SimpleStringProperty;
 /**
  * Created by Chris on 8/13/2017.
  */
-public class rooms {
+public class Rooms {
     private SimpleIntegerProperty RoomNumber = new SimpleIntegerProperty();
     private SimpleStringProperty Type = new SimpleStringProperty();
     private SimpleIntegerProperty rate = new SimpleIntegerProperty();

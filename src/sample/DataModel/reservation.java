@@ -8,7 +8,7 @@ import java.sql.Date;
 /**
  * Created by Chris on 8/13/2017.
  */
-public class reservation {
+public class Reservation {
     private SimpleStringProperty GuestID = new SimpleStringProperty("");
     private SimpleIntegerProperty RoomNumber = new SimpleIntegerProperty();
     private Date checkinDate;

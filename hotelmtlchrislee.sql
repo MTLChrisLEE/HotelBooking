@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `guests`
+-- Table structure for table `Guests`
 --
 
 CREATE TABLE `guests` (
@@ -37,7 +37,7 @@ CREATE TABLE `guests` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `guests`
+-- Dumping data for table `Guests`
 --
 
 INSERT INTO `guests` (`GuestID`, `lastName`, `firstName`, `phoneNumber`, `email`) VALUES
@@ -46,7 +46,7 @@ INSERT INTO `guests` (`GuestID`, `lastName`, `firstName`, `phoneNumber`, `email`
 -- --------------------------------------------------------
 
 --
--- Table structure for table `reservation`
+-- Table structure for table `Reservation`
 --
 
 CREATE TABLE `reservation` (
@@ -59,7 +59,7 @@ CREATE TABLE `reservation` (
 -- --------------------------------------------------------
 
 --
--- Table structure for table `rooms`
+-- Table structure for table `Rooms`
 --
 
 CREATE TABLE `rooms` (
@@ -68,7 +68,7 @@ CREATE TABLE `rooms` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `rooms`
+-- Dumping data for table `Rooms`
 --
 
 INSERT INTO `rooms` (`RoomNumber`, `rate`) VALUES
@@ -147,20 +147,20 @@ INSERT INTO `rooms` (`RoomNumber`, `rate`) VALUES
 --
 
 --
--- Indexes for table `guests`
+-- Indexes for table `Guests`
 --
 ALTER TABLE `guests`
   ADD PRIMARY KEY (`GuestID`);
 
 --
--- Indexes for table `reservation`
+-- Indexes for table `Reservation`
 --
 ALTER TABLE `reservation`
   ADD KEY `GuestID` (`GuestID`),
   ADD KEY `RoomNumber` (`RoomNumber`);
 
 --
--- Indexes for table `rooms`
+-- Indexes for table `Rooms`
 --
 ALTER TABLE `rooms`
   ADD PRIMARY KEY (`RoomNumber`);
@@ -170,7 +170,7 @@ ALTER TABLE `rooms`
 --
 
 --
--- Constraints for table `reservation`
+-- Constraints for table `Reservation`
 --
 ALTER TABLE `reservation`
   ADD CONSTRAINT `reservation_ibfk_1` FOREIGN KEY (`GuestID`) REFERENCES `guests` (`GuestID`) ON DELETE CASCADE ON UPDATE CASCADE,

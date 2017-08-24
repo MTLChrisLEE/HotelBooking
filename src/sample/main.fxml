@@ -38,17 +38,14 @@
     <center>
         <VBox alignment="CENTER" spacing="40">
             <children>
+
                 <HBox alignment="CENTER">
-                    <Label text="Check In Date: "></Label>
+                    <Label text="Date: "></Label>
                     <DatePicker fx:id="checkindatepicker"></DatePicker>
                 </HBox>
-                <HBox alignment="CENTER">
-                    <Label text="Check Out Date: "></Label>
-                    <DatePicker fx:id="checkoutdatepicker"></DatePicker>
-                </HBox>
+                <Button text="Search" onAction="#listSearchedRooms"></Button>
                 <Button text="Reserve" onAction="#showReserve"></Button>
                 <Button fx:id="checkReservation" text="Check Reservation" onAction="#showReservation"></Button>
-                <Button text="Search" onAction="#listSearchedRooms"></Button>
             </children>
         </VBox>
     </center>

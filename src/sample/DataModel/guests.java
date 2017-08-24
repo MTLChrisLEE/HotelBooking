@@ -5,7 +5,7 @@ import javafx.beans.property.SimpleStringProperty;
 /**
  * Created by Chris on 8/13/2017.
  */
-public class guests {
+public class Guests {
     private SimpleStringProperty GuestID = new SimpleStringProperty("");
     private SimpleStringProperty lastName = new SimpleStringProperty("");
     private SimpleStringProperty firstName = new SimpleStringProperty("");

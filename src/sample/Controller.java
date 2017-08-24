@@ -8,39 +8,33 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.DialogPane;
-import javafx.scene.control.TableView;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import sample.DataModel.DataSource;
-import sample.DataModel.rooms;
+import sample.DataModel.Rooms;
 
-import java.io.IOException;
-;
+import java.time.format.DateTimeFormatter;
+
 
 public class Controller {
     @FXML
-    private TableView<rooms> roomsTableView;
-
-    @FXML
-    private BorderPane mainpane;
+    private TableView<Rooms> roomsTableView;
 
     @FXML
     Button checkReservation;
 
     public void listRooms(){
-        Task<ObservableList<rooms>> task = new GetAllRooms();
+        Task<ObservableList<Rooms>> task = new GetAllRooms();
         roomsTableView.itemsProperty().bind(task.valueProperty());
 
         new Thread(task).start();
     }
 
     public void listSearchedRooms(){
-        Task<ObservableList<rooms>> task = new GetSearchedRooms();
+        Task<ObservableList<Rooms>> task = new GetSearchedRooms();
         roomsTableView.itemsProperty().bind(task.valueProperty());
 
         new Thread(task).start();
@@ -81,27 +75,34 @@ public class Controller {
         }catch(Exception e){
             System.out.println("Cannot open the dialog window: " + e.getMessage());
         }
-
     }
-
 }
 
 
 class GetAllRooms extends Task{
     @Override
-    protected ObservableList<rooms> call() throws Exception {
+    protected ObservableList<Rooms> call() throws Exception {
         return FXCollections.observableArrayList
                 (DataSource.getInstance().queryAllRooms());
     }
-
 }
 
 
 class GetSearchedRooms extends Task{
+
+    @FXML
+    private DatePicker checkindatepicker;
+
+    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
+
+
     @Override
-    protected ObservableList<rooms> call() throws Exception {
+    protected ObservableList<Rooms> call() throws Exception {
+
+        String date = (java.sql.Date.valueOf(checkindatepicker.getValue())).toString();
+
         return FXCollections.observableArrayList
-                (DataSource.getInstance().showSearchResult());
+                (DataSource.getInstance().showSearchResult(date));
     }
 
 }

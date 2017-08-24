@@ -6,9 +6,7 @@ import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
 import sample.DataModel.DataSource;
-import sample.DataModel.reservation;
-import sample.DataModel.rooms;
-
+import sample.DataModel.Reservation;
 
 
 /**
@@ -17,10 +15,10 @@ import sample.DataModel.rooms;
 public class CheckReservationDialog {
 
     @FXML
-    private TableView<reservation> reservationTableView;
+    private TableView<Reservation> reservationTableView;
 
     public void listReservation(){
-        Task<ObservableList<reservation>> task = new GetAllReservation();
+        Task<ObservableList<Reservation>> task = new GetAllReservation();
         reservationTableView.itemsProperty().bind(task.valueProperty());
 
         new Thread(task).start();
@@ -31,7 +29,7 @@ public class CheckReservationDialog {
 
 class GetAllReservation extends Task{
     @Override
-    protected ObservableList<reservation> call() throws Exception {
+    protected ObservableList<Reservation> call() throws Exception {
         return FXCollections.observableArrayList
                 (DataSource.getInstance().queryAllReservation());
     }
