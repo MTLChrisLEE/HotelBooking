@@ -175,12 +175,12 @@ public class DataSource {
         }
     }
 
-    public List<Rooms> showSearchResult(String date) {
+    public List<Rooms> showSearchResult(Date date) {
         try {
-            queryVacancy.setString(1, date);
-            queryVacancy.setString(2, date);
-            queryVacancy.setString(3, date);
-            queryVacancy.setString(4, date);
+            queryVacancy.setDate(1, date);
+            queryVacancy.setDate(2, date);
+            queryVacancy.setDate(3, date);
+            queryVacancy.setDate(4, date);
             ResultSet resultSet = queryVacancy.executeQuery();
 
             List<Rooms> rooms = new ArrayList<>();

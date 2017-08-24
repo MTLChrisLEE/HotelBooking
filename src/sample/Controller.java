@@ -16,6 +16,7 @@ import javafx.stage.StageStyle;
 import sample.DataModel.DataSource;
 import sample.DataModel.Rooms;
 
+import java.sql.Date;
 import java.time.format.DateTimeFormatter;
 
 
@@ -25,6 +26,7 @@ public class Controller {
 
     @FXML
     Button checkReservation;
+
 
     public void listRooms(){
         Task<ObservableList<Rooms>> task = new GetAllRooms();
@@ -88,20 +90,24 @@ class GetAllRooms extends Task{
 }
 
 
+
 class GetSearchedRooms extends Task{
 
-    @FXML
-    private DatePicker checkindatepicker;
-
-    private DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-mm-dd");
-
+//    @FXML
+//    private DatePicker checkindatepicker;
 
     @Override
     protected ObservableList<Rooms> call() throws Exception {
 
-        String date = (java.sql.Date.valueOf(checkindatepicker.getValue())).toString();
 
-        return FXCollections.observableArrayList
+       //Date date = java.sql.Date.valueOf(checkindatepicker.getValue());
+        String str="2017-08-31";
+        Date date=Date.valueOf(str);//converting string into sql date
+
+        System.out.println(date.toString());
+
+
+         return FXCollections.observableArrayList
                 (DataSource.getInstance().showSearchResult(date));
     }
 
