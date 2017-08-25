@@ -39,11 +39,15 @@ public class Controller {
     }
 
     public void listSearchedRooms(){
-        Task<ObservableList<Rooms>> task =
-                new GetSearchedRooms(Date.valueOf(checkindatepicker.getValue()));
-        roomsTableView.itemsProperty().bind(task.valueProperty());
+        try {
+            Task<ObservableList<Rooms>> task =
+                    new GetSearchedRooms(Date.valueOf(checkindatepicker.getValue()));
+            roomsTableView.itemsProperty().bind(task.valueProperty());
+            new Thread(task).start();
+        }catch(NullPointerException e){
+            System.out.println("");
+        }
 
-        new Thread(task).start();
     }
 
     public LocalDate getCheckindatepicker(){
@@ -71,7 +75,7 @@ public class Controller {
 
 
     @FXML
-    public void showReserve() {
+    public void addReservation() {
 
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReserveDialogPane.fxml"));
@@ -101,17 +105,12 @@ class GetSearchedRooms extends Task{
 
     private final Date date ;
 
-    public GetSearchedRooms(Date date) {
+    public GetSearchedRooms(Date date) throws NullPointerException{
         this.date = date;
     }
 
-
     @Override
     protected ObservableList<Rooms> call() throws Exception {
-
-
-
-
         return FXCollections.observableArrayList
                 (DataSource.getInstance().showSearchResult(date));
     }

@@ -1,5 +1,8 @@
 package sample.DataModel;
 
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.property.SimpleStringProperty;
+
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -47,6 +50,8 @@ public class DataSource {
 
 
     private PreparedStatement queryVacancy;
+    private PreparedStatement insertGuest;
+    private PreparedStatement insertReservation;
 
     private Connection connection;
 
@@ -60,6 +65,8 @@ public class DataSource {
         try {
             connection = DriverManager.getConnection(CONNECTION_STRING, "root", "");
             queryVacancy = connection.prepareStatement(QUERY_VACANCY);
+            insertGuest = connection.prepareStatement(QUERY_INSERT_GUEST);
+            insertReservation = connection.prepareStatement(QUERY_INSERT_RESERVATION);
 
             return true;
         } catch (SQLException e) {
@@ -152,29 +159,6 @@ public class DataSource {
         }
     }
 
-    public List<Reservation> queryReservationbyGuestID(String guestID, int sortOrder) {
-        StringBuilder sb = new StringBuilder(QUERY_RESERVATION_BY_GUEST_ID_START);
-        sb.append(guestID);
-        sb.append("\'");
-
-        try (Statement statement = connection.createStatement();
-            ResultSet resultSet = statement.executeQuery(sb.toString())) {
-            List<Reservation> reservations = new ArrayList<>();
-            while (resultSet.next()) {
-                Reservation reservation = new Reservation();
-                reservation.setGuestID(resultSet.getString(COLUMN_GUESTID));
-                reservation.setRoomNumber(resultSet.getInt(COLUMN_ROOM));
-                reservation.setCheckinDate(resultSet.getDate(COLUMN_CHECKIN));
-                reservation.setCheckoutDate((resultSet.getDate(COLUMN_CHECKOUT)));
-                reservations.add(reservation);
-            }
-            return reservations;
-        } catch (SQLException e) {
-            System.out.println("QUERY FAILED: " + e.getMessage());
-            return null;
-        }
-    }
-
     public List<Rooms> showSearchResult(Date date) {
         try {
             queryVacancy.setDate(1, date);
@@ -198,6 +182,82 @@ public class DataSource {
             return null;
         }
     }
+
+
+    public String insertGuest(String GuestID, String lastName, String firstName, String phoneNumber, String email) throws SQLException{
+
+
+           insertGuest.setString(1, GuestID);
+           insertGuest.setString(2, lastName);
+           insertGuest.setString(3, firstName);
+           insertGuest.setString(4, phoneNumber);
+           insertGuest.setString(5, email);
+
+           ResultSet resultSet = insertGuest.executeQuery();
+           if (resultSet.next()) {
+               return resultSet.getString(1);
+           } else {
+               insertGuest.setString(1, GuestID);
+               insertGuest.setString(2, lastName);
+               insertGuest.setString(3, firstName);
+               insertGuest.setString(4, phoneNumber);
+               insertGuest.setString(5, email);
+               int updatedRows = insertGuest.executeUpdate();
+
+               if (updatedRows != 1) {
+                   throw new SQLException("Could Not add the guest");
+               }
+
+               ResultSet generatedkey = insertGuest.getGeneratedKeys();
+               if (generatedkey.next()) {
+                   return generatedkey.getString(1);
+               } else {
+                   throw new SQLException("Could Not get the GuestID");
+               }
+
+           }
+
+    }
+
+
+    ;
+
+    public void insertReservation(String GuestID_, int RoomNumber, Date checkinDate, Date checkoutDate) throws SQLException{
+        try {
+            connection.setAutoCommit(false);
+
+           
+            insertReservation.setString(1, GuestID_);
+            insertReservation.setInt(2, RoomNumber);
+            insertReservation.setDate(3, checkinDate);
+            insertReservation.setDate(4, checkoutDate);
+
+            int updatedRows = insertGuest.executeUpdate();
+            if (updatedRows == 1) {
+                connection.commit();
+            } else {
+                throw new SQLException("Cannot insert the reservation");
+            }
+        }catch(SQLException e2) {
+            System.out.println("Insert reservation exception: " + e2.getMessage());
+            try {
+                System.out.println("ROLLBACK");
+                connection.rollback();
+            } catch (SQLException e) {
+                System.out.println("SOMETHING IS VERY VERY WRONG: " + e.getMessage());
+            }
+        }finally{
+            try {
+                System.out.println("Resetting drfault commit");
+                connection.setAutoCommit(true);
+            }catch(SQLException e){
+                System.out.println("CANNOT RESET AUTOCOMMIT: " + e.getMessage());
+            }
+        }
+
+
+    }
+
 }
 
 

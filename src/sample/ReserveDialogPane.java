@@ -10,10 +10,8 @@ import javafx.scene.layout.BorderPane;
  * Created by Chris on 8/21/2017.
  */
 public class ReserveDialogPane {
-
         @FXML
         private DialogPane ReservePane;
-
         @FXML
         private TextField roomnumber;
         @FXML
