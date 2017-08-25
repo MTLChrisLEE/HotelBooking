@@ -17,6 +17,7 @@ import sample.DataModel.DataSource;
 import sample.DataModel.Rooms;
 
 import java.sql.Date;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
 
@@ -25,8 +26,10 @@ public class Controller {
     private TableView<Rooms> roomsTableView;
 
     @FXML
-    Button checkReservation;
+    private DatePicker checkindatepicker;
 
+    @FXML
+    Button checkReservation;
 
     public void listRooms(){
         Task<ObservableList<Rooms>> task = new GetAllRooms();
@@ -36,12 +39,16 @@ public class Controller {
     }
 
     public void listSearchedRooms(){
-        Task<ObservableList<Rooms>> task = new GetSearchedRooms();
+        Task<ObservableList<Rooms>> task =
+                new GetSearchedRooms(Date.valueOf(checkindatepicker.getValue()));
         roomsTableView.itemsProperty().bind(task.valueProperty());
 
         new Thread(task).start();
     }
 
+    public LocalDate getCheckindatepicker(){
+            return checkindatepicker.getValue();
+    }
 
     @FXML
     public void showReservation(ActionEvent event){
@@ -90,24 +97,22 @@ class GetAllRooms extends Task{
 }
 
 
-
 class GetSearchedRooms extends Task{
 
-//    @FXML
-//    private DatePicker checkindatepicker;
+    private final Date date ;
+
+    public GetSearchedRooms(Date date) {
+        this.date = date;
+    }
+
 
     @Override
     protected ObservableList<Rooms> call() throws Exception {
 
 
-       //Date date = java.sql.Date.valueOf(checkindatepicker.getValue());
-        String str="2017-08-31";
-        Date date=Date.valueOf(str);//converting string into sql date
-
-        System.out.println(date.toString());
 
 
-         return FXCollections.observableArrayList
+        return FXCollections.observableArrayList
                 (DataSource.getInstance().showSearchResult(date));
     }
 
