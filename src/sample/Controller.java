@@ -31,6 +31,15 @@ public class Controller {
     @FXML
     Button checkReservation;
 
+    @FXML
+    private TextArea Instruction;
+
+    public void setInstruction(){
+        Instruction.setPrefRowCount(7   );
+        Instruction.appendText("2.Create a guest profile if he/she is new");
+    }
+
+
     public void listRooms(){
         Task<ObservableList<Rooms>> task = new GetAllRooms();
         roomsTableView.itemsProperty().bind(task.valueProperty());
@@ -76,19 +85,35 @@ public class Controller {
 
     @FXML
     public void addReservation() {
-
         try{
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ReserveDialogPane.fxml"));
             Parent root1 = (Parent)fxmlLoader.load();
             Stage stage = new Stage();
             stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Enter the guest's info");
+            stage.setTitle("Reserve a room");
             stage.setScene(new Scene(root1));
             stage.show();
         }catch(Exception e){
             System.out.println("Cannot open the dialog window: " + e.getMessage());
         }
     }
+
+
+    @FXML
+    public void addGuest(){
+        try{
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateGuest.fxml"));
+            Parent root1 = (Parent)fxmlLoader.load();
+            Stage stage = new Stage();
+            stage.initStyle(StageStyle.DECORATED);
+            stage.setTitle("Create a guest profile");
+            stage.setScene(new Scene(root1));
+            stage.show();
+        }catch(Exception e){
+            System.out.println("Cannot open the dialog window: " + e.getMessage());
+        }
+    }
+
 }
 
 

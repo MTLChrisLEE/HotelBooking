@@ -37,4 +37,7 @@
             </columns>
         </TableView>
     </left>
+    <center>
+         <Button text="Delete" onAction="#DeleteTheReservation"></Button>
+    </center>
 </BorderPane>

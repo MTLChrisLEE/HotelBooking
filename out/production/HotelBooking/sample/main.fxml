@@ -10,7 +10,9 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.layout.HBox?>
-<BorderPane fx:id="mainpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller">
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.control.TextArea?>
+<BorderPane fx:id="mainpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller" prefWidth="800" prefHeight="800">
     <left>
         <TableView fx:id="roomsTableView" prefWidth="500">
             <columnResizePolicy>
@@ -37,14 +39,19 @@
     </left>
     <center>
         <VBox alignment="CENTER" spacing="40">
+            <Label text="1.Search available rooms on the specific date"/>
+            <Label text="2.Create a guest's profile if he/she is new"/>
+            <Label text="3.Reserve a room"/>
             <children>
-
                 <HBox alignment="CENTER">
                     <Label text="Date: "></Label>
                     <DatePicker fx:id="checkindatepicker"></DatePicker>
                 </HBox>
                 <Button text="Search" onAction="#listSearchedRooms"></Button>
-                <Button text="Reserve" onAction="#addReservation"></Button>
+                <HBox alignment="CENTER" spacing="10">
+                    <Button text="Create a guest" onAction="#addGuest"></Button>
+                    <Button text="Reserve" onAction="#addReservation"></Button>
+                </HBox>
                 <Button fx:id="checkReservation" text="Check Reservation" onAction="#showReservation"></Button>
             </children>
         </VBox>

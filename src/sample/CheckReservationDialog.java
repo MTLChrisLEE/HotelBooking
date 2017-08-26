@@ -8,22 +8,32 @@ import javafx.scene.control.TableView;
 import sample.DataModel.DataSource;
 import sample.DataModel.Reservation;
 
+import java.sql.SQLException;
+
 
 /**
  * Created by Chris on 8/21/2017.
  */
 public class CheckReservationDialog {
-
     @FXML
     private TableView<Reservation> reservationTableView;
 
     public void listReservation(){
         Task<ObservableList<Reservation>> task = new GetAllReservation();
         reservationTableView.itemsProperty().bind(task.valueProperty());
-
         new Thread(task).start();
     }
 
+    public void DeleteTheReservation(){
+        Reservation reservation = reservationTableView.getSelectionModel().getSelectedItem();
+        try{
+            DataSource.getInstance().deleteFomReservation(reservation.getGuestID(),reservation.getRoomNumber());
+        }catch (SQLException e){
+            System.out.println("Cancel the reservation: " + e.getMessage());
+        }
+
+        listReservation();
+    }
 }
 
 

@@ -27,7 +27,7 @@ public class Main extends Application {
     @Override
     public void init() throws Exception {
         DataSource.getInstance().open();
-    }
+     }
 
     @Override
     public void stop() throws Exception {
@@ -38,12 +38,6 @@ public class Main extends Application {
 
 
     public static void main(String[] args) {
-
-        DataSource dataSource = new DataSource();
-
-        dataSource.insertGuest("Java","Framework","Spring","8459871568","frameworkjaava@gmail.com");
-
-
         launch(args);
     }
 
