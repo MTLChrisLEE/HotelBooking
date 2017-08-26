@@ -42,7 +42,7 @@ public class DataSource {
     public static final String QEURY_ALLROOMS = "SELECT * FROM " + TABLE_ROOMS;
 
     //To print all reservation
-    public static final String QUERY_RESERVATION = "SELECT * FROM " + TABLE_RESERVATION;
+    public static final String QUERY_RESERVATION = "SELECT * FROM " + TABLE_RESERVATION + " ORDER BY "+COLUMN_CHECKIN ;
 
     //To print all the guests
     public static final String QUERY_GUESTS = "SELECT * FROM " + TABLE_GUESTS;
@@ -67,7 +67,6 @@ public class DataSource {
     public static final String QUERY_GUEST = "SELECT " + COLUMN_GUESTID + " FROM " + TABLE_GUESTS + " WHERE " + COLUMN_GUESTID + "=?";
 
 
-    //DELETE FROM reservation WHERE (GuestID='PHP' AND RoomNumber=202);
 
     //To delete a reservation, it is mandatory to click a row in the reservation list
     public static final String QUERY_DELETE_RESERVATION = "DELETE FROM "+TABLE_RESERVATION+ " WHERE ("+COLUMN_GUESTID+"=? AND "+
@@ -207,6 +206,7 @@ public class DataSource {
 
     public List<Reservation> queryAllReservation() {
         StringBuilder sb = new StringBuilder(QUERY_RESERVATION);
+        System.out.println(sb.toString());
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sb.toString())) {
             List<Reservation> reservations = new ArrayList<>();

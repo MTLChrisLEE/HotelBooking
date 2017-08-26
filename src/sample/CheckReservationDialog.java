@@ -31,7 +31,6 @@ public class CheckReservationDialog {
         }catch (SQLException e){
             System.out.println("Cancel the reservation: " + e.getMessage());
         }
-
         listReservation();
     }
 }

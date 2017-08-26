@@ -12,6 +12,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.text.Text?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.text.Font?>
 <BorderPane fx:id="mainpane" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controller" prefWidth="800" prefHeight="800">
     <left>
         <TableView fx:id="roomsTableView" prefWidth="500">
@@ -39,9 +40,24 @@
     </left>
     <center>
         <VBox alignment="CENTER" spacing="40">
-            <Label text="1.Search available rooms on the specific date"/>
-            <Label text="2.Create a guest's profile if he/she is new"/>
-            <Label text="3.Reserve a room"/>
+            <Label text="1.Search available rooms on the specific date">
+                <font>
+                    <Font size="16"></Font>
+                </font>
+            </Label>
+
+            <Label text="2.Create a guest's profile if he/she is new">
+                <font>
+                    <Font size="16"></Font>
+                </font>
+            </Label>
+
+            <Label text="3.Reserve a room">
+                <font>
+                    <Font size="16"></Font>
+                </font>
+            </Label>
+
             <children>
                 <HBox alignment="CENTER">
                     <Label text="Date: "></Label>
