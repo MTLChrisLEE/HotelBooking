@@ -31,15 +31,6 @@ public class Controller {
     @FXML
     Button checkReservation;
 
-    @FXML
-    private TextArea Instruction;
-
-    public void setInstruction(){
-        Instruction.setPrefRowCount(7   );
-        Instruction.appendText("2.Create a guest profile if he/she is new");
-    }
-
-
     public void listRooms(){
         Task<ObservableList<Rooms>> task = new GetAllRooms();
         roomsTableView.itemsProperty().bind(task.valueProperty());
@@ -56,7 +47,6 @@ public class Controller {
         }catch(NullPointerException e){
             System.out.println("");
         }
-
     }
 
     public LocalDate getCheckindatepicker(){

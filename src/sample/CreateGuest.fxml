@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<GridPane prefHeight="200.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CreateGuest">
+<GridPane prefHeight="163.0" prefWidth="237.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CreateGuest">
     <Label text="GuestID: " GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
     <TextField fx:id="GuestID" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
 
@@ -26,11 +26,10 @@
     <TextField fx:id="email" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
 
     <HBox spacing="20" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
-        <Button text="Ok" GridPane.halignment="CENTER" onAction="#insertnewguest"/>
-        <Button fx:id="cancelButton" text="Cancel" GridPane.halignment="CENTER" onAction="#setCancelButton"/>
+        <Button onAction="#insertnewguest" text="Ok" GridPane.halignment="CENTER" />
+        <Button fx:id="cancelButton" onAction="#setCancelButton" text="Cancel" GridPane.halignment="CENTER" />
       <padding>
          <Insets top="10.0" />
       </padding>
     </HBox>
-
-</GridPane>
+ </GridPane>

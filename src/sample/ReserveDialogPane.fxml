@@ -17,14 +17,14 @@
             <TextField fx:id="roomnumber" GridPane.columnIndex="1" GridPane.rowIndex="1" />
 
             <Label text="Check In Date: " GridPane.columnIndex="0" GridPane.rowIndex="2" />
-            <DatePicker promptText="yyyy-mm-dd" fx:id="checkindate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+            <DatePicker fx:id="checkindate" GridPane.columnIndex="1" GridPane.rowIndex="2" />
 
             <Label text="Check Out Date: " GridPane.columnIndex="0" GridPane.rowIndex="3" />
-            <DatePicker promptText="yyyy-mm-dd" fx:id="checkoutdate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+            <DatePicker fx:id="checkoutdate" GridPane.columnIndex="1" GridPane.rowIndex="3" />
 
             <Button fx:id="Guests" GridPane.columnIndex="0" GridPane.rowIndex="4" text="Guests" onAction="#showAllguests"/>
             <HBox spacing="10" GridPane.columnIndex="1" GridPane.rowIndex="4" >
-               <Button text="OK"  onAction="#insertnewreservation"/>
+               <Button fx:id="Ok" text="OK"  onAction="#insertnewreservation"/>
                <Button fx:id="cancelButton" text="Cancel" onAction="#setCancelButton" />
             </HBox>
 </GridPane>

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -36,7 +37,8 @@ public class ReserveDialogPane {
         private Button Guests;
         @FXML
         private Button cancelButton;
-
+        @FXML
+        private Button Ok;
 
         public void setCancelButton(){
                 Stage stage=(Stage)cancelButton.getScene().getWindow();
@@ -44,16 +46,53 @@ public class ReserveDialogPane {
         }
 
         public void insertnewreservation(){
+                Alert emptyID=new Alert(Alert.AlertType.ERROR);
+                emptyID.setTitle("Error");
+                emptyID.setHeaderText("No empty guestID");
+
+                Alert emptyRoomNumber = new Alert(Alert.AlertType.ERROR);
+                emptyRoomNumber.setTitle("Error");
+                emptyRoomNumber.setHeaderText("No empty room number");
+
+                Alert checkinLaterThanchecout = new Alert(Alert.AlertType.ERROR);
+                checkinLaterThanchecout.setTitle("ERROR");
+                checkinLaterThanchecout.setHeaderText("CheckIn Date is Later than Checkout, Undo the reservation");
+
+
+                if(GuestID.getText().isEmpty()){
+                        Ok.setOnAction(event -> emptyID.show());
+                        emptyID.showAndWait();
+                        setCancelButton();
+                        return;
+                }
+
+                if(roomnumber.getText().isEmpty()){
+                        Ok.setOnAction(event -> emptyRoomNumber.show());
+                        emptyRoomNumber.showAndWait();
+                        setCancelButton();
+                        return;
+                }
+
+                if(checkindate.getValue().isAfter(checkoutdate.getValue())){
+                        Ok.setOnAction(event -> checkinLaterThanchecout.show());
+                        checkinLaterThanchecout.showAndWait();
+                        setCancelButton();
+                        return;
+                }
+
+
                 String newID = GuestID.getText();
                 int RoomNumber = Integer.parseInt(roomnumber.getText());
                 Date arrivaldate = Date.valueOf(checkindate.getValue());
                 Date leavedate = Date.valueOf(checkoutdate.getValue());
-                try {
+
+                try{
                         DataSource.getInstance().insertReservation(newID, RoomNumber, arrivaldate, leavedate);
                 }catch (SQLException e){
                         System.out.println("Cannot add the reservation into the DB: " + e.getMessage());
+                }catch (NumberFormatException e){
+                        System.out.println("Cannot and the reservation into the DB: "+ e.getMessage());
                 }
-
                 setCancelButton();
         }
 
@@ -61,10 +100,8 @@ public class ReserveDialogPane {
                 try{
                         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("ListGuests.fxml"));
                         Parent root1 = (Parent)fxmlLoader.load();
-
                         ListGuests guestscontroller = fxmlLoader.getController();
                         guestscontroller.listGuests();
-
                         Stage stage = new Stage();
                         stage.initStyle(StageStyle.DECORATED);
                         stage.setTitle("Guest List");
@@ -74,10 +111,5 @@ public class ReserveDialogPane {
                         System.out.println("Cannot Open the new Window: "+e.getMessage());
                 }
         }
-
-
-
-
-
 
 }
