@@ -10,28 +10,26 @@
 <?import javafx.scene.layout.RowConstraints?>
 
 <GridPane prefHeight="163.0" prefWidth="237.0" xmlns="http://javafx.com/javafx/8.0.112" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.CreateGuest">
-    <Label text="GuestID: " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
-    <TextField fx:id="GuestID" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+    <Label text="GuestID: " GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
+    <TextField fx:id="GuestID" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="0" />
 
-    <Label text="Last Name: " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
-    <TextField fx:id="lastName" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+    <Label text="Last Name: " GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+    <TextField fx:id="lastName" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
 
-    <Label text="First Name: " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-    <TextField fx:id="firstName" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+    <Label text="First Name: " GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+    <TextField fx:id="firstName" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
 
-    <Label text="Phone Number: " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
-    <TextField fx:id="phoneNumber" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+    <Label text="Phone Number: " GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+    <TextField fx:id="phoneNumber" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
 
-    <Label text="Email: " GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
-    <TextField fx:id="email" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+    <Label text="Email: " GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+    <TextField fx:id="email" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
 
-    <HBox spacing="20" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="5">
+    <HBox spacing="20" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="5">
         <Button onAction="#insertnewguest" text="Ok" GridPane.halignment="CENTER" />
         <Button fx:id="cancelButton" onAction="#setCancelButton" text="Cancel" GridPane.halignment="CENTER" />
       <padding>
          <Insets top="10.0" />
       </padding>
     </HBox>
-
-
-</GridPane>
+ </GridPane>

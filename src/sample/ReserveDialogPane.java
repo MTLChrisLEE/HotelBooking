@@ -58,7 +58,6 @@ public class ReserveDialogPane {
                 checkinLaterThanchecout.setTitle("ERROR");
                 checkinLaterThanchecout.setHeaderText("CheckIn Date is Later than Checkout, Undo the reservation");
 
-
                 if(GuestID.getText().isEmpty()){
                         Ok.setOnAction(event -> emptyID.show());
                         emptyID.showAndWait();
@@ -86,7 +85,16 @@ public class ReserveDialogPane {
                 Date arrivaldate = Date.valueOf(checkindate.getValue());
                 Date leavedate = Date.valueOf(checkoutdate.getValue());
 
+                Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
+                confirmation.setTitle("CONFIRMATION");
+                confirmation.setHeaderText("Reservation Info:");
+                confirmation.setContentText("GuestID: "+newID+"\n"+"RoomNumber: "+RoomNumber+"\n"+"Check-In Date: "+arrivaldate.toString()+"\n"+"Check-Out Date: "+leavedate.toString());
+
                 try{
+                        if(true){
+                                Ok.setOnAction(event -> confirmation.show());
+                                confirmation.showAndWait();
+                        }
                         DataSource.getInstance().insertReservation(newID, RoomNumber, arrivaldate, leavedate);
                 }catch (SQLException e){
                         System.out.println("Cannot add the reservation into the DB: " + e.getMessage());
@@ -111,5 +119,4 @@ public class ReserveDialogPane {
                         System.out.println("Cannot Open the new Window: "+e.getMessage());
                 }
         }
-
 }

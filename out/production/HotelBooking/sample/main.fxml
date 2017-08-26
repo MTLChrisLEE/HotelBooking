@@ -20,7 +20,7 @@
                 <TableView fx:constant="CONSTRAINED_RESIZE_POLICY"/>
             </columnResizePolicy>
             <columns>
-                <TableColumn fx:id="roomnumber" prefWidth="58.0" text="Room">
+                <TableColumn prefWidth="58.0" text="Room">
                     <cellValueFactory>
                         <PropertyValueFactory property="RoomNumber"></PropertyValueFactory>
                     </cellValueFactory>

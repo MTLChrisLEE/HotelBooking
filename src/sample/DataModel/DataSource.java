@@ -2,6 +2,7 @@ package sample.DataModel;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.control.DatePicker;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -47,7 +48,6 @@ public class DataSource {
     //To print all the guests
     public static final String QUERY_GUESTS = "SELECT * FROM " + TABLE_GUESTS;
 
-
     //To print all available rooms on the chosen date
     public static final String QUERY_VACANCY = "SELECT r.* FROM " + TABLE_ROOMS + " r WHERE NOT EXISTS (SELECT 1 FROM " + TABLE_RESERVATION + " re WHERE " +
             "re." + COLUMN_ROOM + "=" + "r." + COLUMN_ROOM + " AND " + "((?>=re." + COLUMN_CHECKIN + " AND ?<re." + COLUMN_CHECKOUT
@@ -71,8 +71,6 @@ public class DataSource {
     //To delete a reservation, it is mandatory to click a row in the reservation list
     public static final String QUERY_DELETE_RESERVATION = "DELETE FROM "+TABLE_RESERVATION+ " WHERE ("+COLUMN_GUESTID+"=? AND "+
                                                     COLUMN_ROOM+"=?)";
-
-
 
     private PreparedStatement queryVacancy;
     private PreparedStatement queryGuestID;
@@ -132,7 +130,6 @@ public class DataSource {
         }
     }
 
-
     public List<Reservation> queryReservation(int sortOrder) {
 
         StringBuilder sb = new StringBuilder("SELECT * FROM ");
@@ -161,7 +158,6 @@ public class DataSource {
         }
 
     }
-
 
     public List<Rooms> queryAllRooms() {
         StringBuilder sb = new StringBuilder(QEURY_ALLROOMS);
@@ -203,10 +199,8 @@ public class DataSource {
         }
     }
 
-
     public List<Reservation> queryAllReservation() {
         StringBuilder sb = new StringBuilder(QUERY_RESERVATION);
-        System.out.println(sb.toString());
         try (Statement statement = connection.createStatement();
              ResultSet resultSet = statement.executeQuery(sb.toString())) {
             List<Reservation> reservations = new ArrayList<>();
@@ -275,7 +269,6 @@ public class DataSource {
             return GuestID;
         }
     }
-
 
     public void insertReservation(String GuestID_, int RoomNumber, Date checkinDate, Date checkoutDate) throws SQLException{
             insertINTOReservation.setString(1, GuestID_);
