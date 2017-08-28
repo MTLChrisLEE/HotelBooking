@@ -1,7 +1,11 @@
 package sample;
 
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 import sample.DataModel.DataSource;
 
@@ -25,6 +29,8 @@ public class CreateGuest {
     private TextField email;
     @FXML
     private Button cancelButton;
+    @FXML
+    private Button Ok;
 
     public void insertnewguest(){
         String newID = GuestID.getText();
@@ -33,12 +39,20 @@ public class CreateGuest {
         String newphoneNumber = phoneNumber.getText();
         String newEmail = email.getText();
 
+        Alert failtoinsertDB=new Alert(Alert.AlertType.ERROR);
+        failtoinsertDB.setTitle("Error");
+        failtoinsertDB.setHeaderText("The following ID already exists: "+ newID);
+
         try {
             DataSource.getInstance().insertGuest(newID, newlastName, newfirstName, newphoneNumber, newEmail);
         }catch (SQLException e){
+            if(true){
+                Ok.setOnAction(event -> failtoinsertDB.show());
+                failtoinsertDB.showAndWait();
+                setCancelButton();
+            }
             System.out.println("Cannot add the guest info into the DB: " + e.getMessage());
         }
-
         setCancelButton();
     }
 
@@ -48,7 +62,11 @@ public class CreateGuest {
         stage.close();
     }
 
-
+    public void PressEnterInsertGuest(KeyEvent keyEvent){
+        if(keyEvent.getCode().equals(KeyCode.ENTER)){
+            insertnewguest();
+        }
+    }
 
 
 }

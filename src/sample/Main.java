@@ -16,6 +16,7 @@ public class Main extends Application {
         Parent root = loader.load();
         Controller controller = loader.getController();
         controller.listRooms();
+        controller.listGuests();
 
 
         primaryStage.setTitle("Hotel MTLCHRISLEE");
