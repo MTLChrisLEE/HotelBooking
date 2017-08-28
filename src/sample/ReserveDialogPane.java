@@ -79,11 +79,16 @@ public class ReserveDialogPane {
                         return;
                 }
 
-
                 String newID = GuestID.getText();
                 int RoomNumber = Integer.parseInt(roomnumber.getText());
                 Date arrivaldate = Date.valueOf(checkindate.getValue());
                 Date leavedate = Date.valueOf(checkoutdate.getValue());
+
+                Alert failtoinsertDB=new Alert(Alert.AlertType.ERROR);
+                failtoinsertDB.setTitle("Error");
+                failtoinsertDB.setHeaderText("There is no guest with ID: "+ newID + "\nOR\n" + "There is no room such as: "+RoomNumber);
+
+
 
                 Alert confirmation = new Alert(Alert.AlertType.CONFIRMATION);
                 confirmation.setTitle("CONFIRMATION");
@@ -97,6 +102,11 @@ public class ReserveDialogPane {
                         }
                         DataSource.getInstance().insertReservation(newID, RoomNumber, arrivaldate, leavedate);
                 }catch (SQLException e){
+                        if(true){
+                                Ok.setOnAction(event -> failtoinsertDB.show());
+                                failtoinsertDB.showAndWait();
+                                setCancelButton();
+                        }
                         System.out.println("Cannot add the reservation into the DB: " + e.getMessage());
                 }catch (NumberFormatException e){
                         System.out.println("Cannot and the reservation into the DB: "+ e.getMessage());
