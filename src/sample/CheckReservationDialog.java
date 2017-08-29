@@ -5,6 +5,8 @@ import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.FXML;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import sample.DataModel.DataSource;
 import sample.DataModel.Reservation;
 
@@ -29,9 +31,16 @@ public class CheckReservationDialog {
         try{
             DataSource.getInstance().deleteFomReservation(reservation.getGuestID(),reservation.getRoomNumber());
         }catch (SQLException e){
-            System.out.println("Cancel the reservation: " + e.getMessage());
+            System.out.println("Cannot cancel the reservation: " + e.getMessage());
         }
         listReservation();
+    }
+
+
+    public void DeleteKey(KeyEvent keyEvent){
+        if(keyEvent.getCode().equals(KeyCode.DELETE)){
+            DeleteTheReservation();
+        }
     }
 }
 

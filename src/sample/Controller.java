@@ -106,7 +106,7 @@ public class Controller {
             Parent root1 = (Parent)fxmlLoader.load();
             Stage stage = new Stage();
             stage.initStyle(StageStyle.DECORATED);
-            stage.setTitle("Reserve a room");
+            stage.setTitle("Create a guest profile");
             stage.setScene(new Scene(root1));
             stage.show();
             guestlists.getItems();
